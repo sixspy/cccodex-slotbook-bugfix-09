@@ -16,6 +16,8 @@ def reconcile_all(authorization: AuthHeader = None):
         slots = conn.execute("SELECT * FROM slots ORDER BY code").fetchall()
         items = []
         for s in slots:
+            if s["status"] == "关闭":
+                continue  # 剔关盘：对账汇总只计未关盘档（仪表剔关盘卡同态）
             booked_sum = conn.execute(
                 """SELECT COALESCE(SUM(seats),0) s FROM bookings
                    WHERE slot_id=? AND status='已确认'""",
@@ -32,8 +34,7 @@ def reconcile_all(authorization: AuthHeader = None):
                     "status": s["status"],
                 }
             )
-        # BUGFIX-09 埋雷：对账汇总不剔除关盘档
-        return {"items": items, "all_ok": all(i["ok"] for i in items), "include_closed": True}
+        return {"items": items, "all_ok": all(i["ok"] for i in items), "include_closed": False}
 
 
 @router.get("/api/reconcile/{code}")

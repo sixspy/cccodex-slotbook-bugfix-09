@@ -87,6 +87,11 @@ CREATE TABLE IF NOT EXISTS waitlist(
   status TEXT NOT NULL,
   created_at TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS dashboard_stats(
+  metric TEXT PRIMARY KEY,
+  value INTEGER NOT NULL,
+  updated_at TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS slot_locks(
   lock_key TEXT PRIMARY KEY,
   holder TEXT NOT NULL,

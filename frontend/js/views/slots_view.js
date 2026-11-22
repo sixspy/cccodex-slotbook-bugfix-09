@@ -2,7 +2,7 @@ export const slotsViewTemplate = `
   <div v-show="tab===0" class="panel">
     <h2>档期盘</h2>
     <div class="dash">
-      <div class="cell"><div class="n">{{ dash.slots_open }}</div>开放档</div>
+      <div class="cell"><div class="n">{{ dash.slots_bookable }}</div>开放档</div>
       <div class="cell"><div class="n">{{ dash.holds_open }}</div>占位中</div>
       <div class="cell"><div class="n">{{ dash.bookings }}</div>正式册</div>
       <div class="cell"><div class="n">{{ dash.waitlist }}</div>候补</div>
